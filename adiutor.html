@@ -115,7 +115,21 @@
     .btn-outline:hover { border-color: var(--red); color: var(--red); }
     .hero-stats { display: flex; gap: 2rem; flex-wrap: wrap; }
     .hs { }
-    .hs-num { font-size: 1.6rem; font-weight: 900; line-height: 1; }
+    .hs-num {
+      font-size: 1.6rem; font-weight: 900; line-height: 1;
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 10px;
+      transition: background 0.22s ease, -webkit-text-fill-color 0.22s ease, box-shadow 0.22s ease;
+      cursor: default;
+    }
+    .hs-num:hover {
+      background: var(--red) !important;
+      -webkit-background-clip: border-box !important;
+      background-clip: border-box !important;
+      -webkit-text-fill-color: #ffffff !important;
+      box-shadow: 0 0 18px rgba(255,51,85,0.55);
+    }
     .hs-lbl { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
 
     /* ── SECTION SHARED ── */
@@ -141,23 +155,51 @@
     .how-step {
       background: var(--panel); border: 1px solid var(--border);
       border-radius: 20px; padding: 2rem; position: relative; overflow: hidden;
-      transition: transform 0.3s, border-color 0.3s;
+      transition: transform 0.28s ease, border-color 0.28s ease, background 0.28s ease, box-shadow 0.28s ease;
     }
-    .how-step:hover { transform: translateY(-5px); border-color: rgba(255,51,85,0.35); }
+    .how-step:hover {
+      background: rgba(19,16,26,0.94);
+      transform: translateY(-8px);
+      border-color: rgba(255,106,47,0.48);
+      box-shadow: 0 22px 55px rgba(255,51,85,0.16), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
     .how-step::before {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(255,51,85,0.04), rgba(255,106,47,0.04));
-      opacity: 0; transition: opacity 0.3s;
+      background:
+        radial-gradient(circle at 22% 16%, rgba(255,179,71,0.16), transparent 34%),
+        linear-gradient(135deg, rgba(255,51,85,0.16), rgba(255,106,47,0.08));
+      opacity: 0; transition: opacity 0.28s ease;
+      pointer-events: none;
     }
     .how-step:hover::before { opacity: 1; }
     .step-num {
       font-size: 2.8rem; font-weight: 900; line-height: 1;
       background: var(--sunset); -webkit-background-clip: text;
       -webkit-text-fill-color: transparent; opacity: 0.5; margin-bottom: 0.8rem;
+      display: inline-block; position: relative; z-index: 1;
+      transition: opacity 0.28s ease, transform 0.28s ease, -webkit-text-fill-color 0.28s ease, text-shadow 0.28s ease;
+      cursor: default;
     }
-    .step-icon { font-size: 2rem; margin-bottom: 0.7rem; }
-    .step-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .step-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
+    .how-step:hover .step-num {
+      opacity: 1;
+      transform: translateY(-2px);
+      text-shadow: 0 0 28px rgba(255,106,47,0.35);
+    }
+    .step-icon {
+      font-size: 2rem; margin-bottom: 0.7rem; position: relative; z-index: 1;
+      transition: transform 0.28s ease, filter 0.28s ease;
+    }
+    .how-step:hover .step-icon { transform: scale(1.08); filter: drop-shadow(0 0 16px rgba(255,179,71,0.34)); }
+    .step-title {
+      font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem;
+      position: relative; z-index: 1; transition: color 0.28s ease;
+    }
+    .how-step:hover .step-title { color: #fff; }
+    .step-desc {
+      color: var(--muted); font-size: 0.85rem; line-height: 1.6;
+      position: relative; z-index: 1; transition: color 0.28s ease;
+    }
+    .how-step:hover .step-desc { color: #c9bdd8; }
 
     /* ── FEATURES ── */
     #features { background: var(--bg); }
@@ -180,21 +222,124 @@
     .feat-body strong { font-size: 0.92rem; font-weight: 700; display: block; margin-bottom: 4px; }
     .feat-body span   { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
 
-    .walk-steps { display: flex; flex-direction: column; gap: 0; }
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    #contact::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 45% 70% at 78% 12%, rgba(255,106,47,0.09), transparent 62%),
+        radial-gradient(ellipse 38% 50% at 12% 82%, rgba(255,51,85,0.07), transparent 58%);
+      pointer-events: none;
+    }
+    .contact-wrap {
+      display: grid; grid-template-columns: 0.8fr 1.2fr;
+      gap: 3rem; align-items: start; max-width: 1200px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .contact-kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.4rem 0.95rem; border-radius: 50px;
+      background: rgba(255,51,85,0.1); border: 1px solid rgba(255,51,85,0.26);
+      color: var(--red); font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.4rem;
+    }
+    .contact-copy h2 {
+      font-size: clamp(2rem, 3.5vw, 3.4rem); font-weight: 900;
+      line-height: 1.05; letter-spacing: -1.2px; margin-bottom: 1rem;
+    }
+    .contact-copy p { color: var(--muted); line-height: 1.75; max-width: 460px; }
+    .contact-points { display: grid; gap: 0.8rem; margin-top: 2rem; }
+    .contact-point {
+      display: flex; gap: 12px; align-items: center;
+      color: #c9bdd8; font-size: 0.9rem;
+    }
+    .contact-point span {
+      width: 28px; height: 28px; border-radius: 10px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.08);
+      color: var(--amber); flex-shrink: 0;
+    }
+    .contact-form {
+      background: rgba(19,16,26,0.86); border: 1px solid var(--border);
+      border-radius: 22px; padding: 1.4rem;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.24);
+    }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    .field { display: flex; flex-direction: column; gap: 0.45rem; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { color: #d8cfe4; font-size: 0.8rem; font-weight: 700; }
+    .field input, .field select, .field textarea {
+      width: 100%; min-height: 48px; border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px; background: rgba(6,5,8,0.76); color: var(--text);
+      padding: 0.85rem 0.95rem; font: inherit; outline: none;
+      transition: border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+    }
+    .field textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: rgba(255,106,47,0.62);
+      box-shadow: 0 0 0 4px rgba(255,106,47,0.12);
+      background: rgba(6,5,8,0.92);
+    }
+    .field input::placeholder, .field textarea::placeholder { color: rgba(138,126,163,0.8); }
+    .form-actions {
+      display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+      margin-top: 1.2rem;
+    }
+    .form-note { color: var(--muted); font-size: 0.78rem; }
+    .form-success {
+      display: none; margin-top: 1rem; padding: 0.9rem 1rem;
+      border: 1px solid rgba(255,179,71,0.34); border-radius: 14px;
+      color: #ffe0aa; background: rgba(255,179,71,0.08); font-size: 0.86rem;
+    }
+    .form-success.show { display: block; }
+
+    .walk-steps { display: flex; flex-direction: column; gap: 0.55rem; }
     .walk-step {
-      display: flex; gap: 20px; padding: 1.5rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      cursor: pointer; transition: all 0.2s;
+      display: flex; gap: 20px; padding: 1.05rem 1rem;
+      border: 1px solid transparent; border-radius: 16px;
+      cursor: pointer; position: relative; overflow: hidden;
+      transition: transform 0.24s ease, border-color 0.24s ease, background 0.24s ease, box-shadow 0.24s ease;
     }
-    .walk-step:last-child { border-bottom: none; }
-    .walk-step:hover .ws-num { background: linear-gradient(135deg, #ff3355, #ff6a2f); -webkit-text-fill-color: transparent; }
+    .walk-step::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(255,179,71,0.18), transparent 28%),
+        linear-gradient(135deg, rgba(255,51,85,0.16), rgba(255,106,47,0.08));
+      opacity: 0; transition: opacity 0.24s ease;
+      pointer-events: none;
+    }
+    .walk-step:hover {
+      background: rgba(255,255,255,0.035);
+      border-color: rgba(255,106,47,0.45);
+      box-shadow: 0 18px 46px rgba(255,51,85,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
+      transform: translateX(8px) translateY(-2px);
+    }
+    .walk-step:hover::before { opacity: 1; }
+    .walk-step:hover .ws-num {
+      background: var(--sunset); color: #fff;
+      -webkit-background-clip: border-box; background-clip: border-box;
+      -webkit-text-fill-color: #fff;
+      border-color: rgba(255,255,255,0.2);
+      box-shadow: 0 0 26px rgba(255,106,47,0.35);
+    }
+    .walk-step:hover .ws-body strong { color: #fff; }
+    .walk-step:hover .ws-body p { color: #c9bdd8; }
     .ws-num {
-      font-size: 2rem; font-weight: 900; line-height: 1;
-      background: rgba(255,255,255,0.1); -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent; width: 44px; flex-shrink: 0; margin-top: 2px;
+      width: 44px; height: 44px; border-radius: 14px; flex-shrink: 0; margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.35rem; font-weight: 900; line-height: 1;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(240,234,246,0.45);
+      transition: color 0.24s ease, background 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease, -webkit-text-fill-color 0.24s ease;
     }
-    .ws-body strong { font-size: 1rem; font-weight: 700; display: block; margin-bottom: 4px; }
-    .ws-body p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+    .ws-body { position: relative; z-index: 1; }
+    .ws-body strong { font-size: 1rem; font-weight: 700; display: block; margin-bottom: 4px; transition: color 0.24s ease; }
+    .ws-body p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; transition: color 0.24s ease; }
 
 
     /* ── FOOTER ── */
@@ -217,10 +362,13 @@
       .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
       .hero-right { order: -1; }
       .walk-grid { grid-template-columns: 1fr; }
+      .contact-wrap { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
       .nav-links { display: none; }
       .pc-includes { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .contact-form { padding: 1rem; }
       footer { flex-direction: column; text-align: center; }
     }
   </style>
@@ -238,7 +386,7 @@
     <li><a href="#how">How It Works</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="adiutor.html">← Back to Aviora</a></li>
-    <li><a href="adiutor.html" class="nav-cta">Get Started</a></li>
+    <li><a href="#contact" class="nav-cta">Get Started</a></li>
   </ul>
 </nav>
 
@@ -254,7 +402,7 @@
       <h1>Your Restaurant Table,<br/><span class="sunset-text">Smarter Than Ever</span></h1>
       <p>Customers scan a QR code at their table and instantly access an AI dining assistant — no app needed. They can order, ask questions, call a waiter, and leave a review, all from their phone.</p>
       <div class="hero-btns">
-        <a href="adiutor.html" class="btn-primary">🍽 Get Table Assistant</a>
+        <a href="#contact" class="btn-primary">🍽 Get Table Assistant</a>
         <a href="#how" class="btn-outline">See How It Works ↓</a>
       </div>
       <div class="hero-stats">
@@ -317,7 +465,7 @@
 <section id="features">
   <div class="reveal">
     <p class="section-label">What's Included</p>
-    <h2 class="section-title">Every Table Gets All 11 Features</h2>
+    <h2 class="section-title">Every Table Gets All 12 Features</h2>
     <p class="section-sub">No tiers, no limits. Every feature is available at every table from day one.</p>
   </div>
   <div class="feat-grid">
@@ -365,6 +513,75 @@
       <div class="feat-icon">➕</div>
       <div class="feat-body"><strong>Menu Add-Ons</strong><span>Toppings, substitutions, add-ons, and customizations surfaced clearly within each menu item.</span></div>
     </div>
+    <div class="feat-card reveal">
+      <div class="feat-icon">⚙️</div>
+      <div class="feat-body"><strong>Custom Features</strong><span>Tailored workflows, prompts, and table actions built around the way your restaurant actually operates.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="contact-copy reveal">
+      <div class="contact-kicker">Build Request</div>
+      <h2>Bring Table Assistant to <span class="sunset-text">your business.</span></h2>
+      <p>Share the operational details Aviora needs to shape your table assistant around your menu, staff flow, review goals, and guest experience.</p>
+      <div class="contact-points">
+        <div class="contact-point"><span>1</span> Restaurant profile and service model</div>
+        <div class="contact-point"><span>2</span> Menu, ordering, and request setup</div>
+        <div class="contact-point"><span>3</span> Aviora received the lead details and will follow up within 24 hours</div>
+      </div>
+    </div>
+
+    <form class="contact-form reveal" id="build-form">
+      <div class="form-grid">
+        <div class="field">
+          <label for="business-name">Business name</label>
+          <input id="business-name" name="business-name" type="text" autocomplete="organization" required placeholder="Aviora Bistro"/>
+        </div>
+        <div class="field">
+          <label for="contact-name">Your name</label>
+          <input id="contact-name" name="contact-name" type="text" autocomplete="name" required placeholder="Alex Rivera"/>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required placeholder="owner@restaurant.com"/>
+        </div>
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" required pattern="[+0-9(). -]{8,}" placeholder="(555) 123-4567" title="Enter a valid phone number, such as (555) 123-4567."/>
+        </div>
+        <div class="field">
+          <label for="location-count">Locations</label>
+          <input id="location-count" name="location-count" type="number" min="1" inputmode="numeric" required placeholder="1"/>
+        </div>
+        <div class="field">
+          <label for="service-style">Service style</label>
+          <select id="service-style" name="service-style" required>
+            <option value="">Select one</option>
+            <option>Full-service restaurant</option>
+            <option>Counter service</option>
+            <option>Bar or lounge</option>
+            <option>Cafe</option>
+            <option>Hotel or venue dining</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="menu-link">Menu or website link optional</label>
+          <input id="menu-link" name="menu-link" type="url" autocomplete="url" placeholder="https://yourrestaurant.com/menu"/>
+        </div>
+        <div class="field full">
+          <label for="build-notes">Anything Aviora should know?</label>
+          <textarea id="build-notes" name="build-notes" placeholder="Brand tone, popular dishes, allergy needs, staff routing, review links, launch timeline..."></textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-primary" type="submit">Submit Build Request</button>
+        <span class="form-note">This opens a prepared email to Oliver with the lead details.</span>
+      </div>
+      <div class="form-success" id="form-success" aria-live="polite"></div>
+    </form>
   </div>
 </section>
 
@@ -384,6 +601,46 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const buildForm = document.getElementById('build-form');
+  const formSuccess = document.getElementById('form-success');
+  const phoneInput = document.getElementById('phone');
+  const validatePhone = () => {
+    if (!phoneInput) return true;
+    const digits = phoneInput.value.replace(/\D/g, '');
+    const valid = digits.length >= 10 && digits.length <= 15;
+    phoneInput.setCustomValidity(valid ? '' : 'Please enter a valid phone number.');
+    return valid;
+  };
+  phoneInput?.addEventListener('input', () => {
+    phoneInput.setCustomValidity('');
+  });
+  buildForm?.addEventListener('submit', event => {
+    event.preventDefault();
+    validatePhone();
+    if (!buildForm.checkValidity()) {
+      buildForm.reportValidity();
+      return;
+    }
+    const formData = new FormData(buildForm);
+    const leadLines = [
+      `Business name: ${formData.get('business-name') || ''}`,
+      `Contact name: ${formData.get('contact-name') || ''}`,
+      `Email: ${formData.get('email') || ''}`,
+      `Phone: ${formData.get('phone') || ''}`,
+      `Locations: ${formData.get('location-count') || ''}`,
+      `Service style: ${formData.get('service-style') || ''}`,
+      `Menu or website: ${formData.get('menu-link') || ''}`,
+      '',
+      `Notes: ${formData.get('build-notes') || ''}`
+    ];
+    const subject = encodeURIComponent(`Table Assistant lead: ${formData.get('business-name') || 'New business'}`);
+    const body = encodeURIComponent(leadLines.join('\n'));
+    window.location.href = `mailto:oliver@avioratool.com?subject=${subject}&body=${body}`;
+    formSuccess.textContent = 'Lead details are ready to send to oliver@avioratool.com.';
+    formSuccess.classList.add('show');
+    buildForm.reset();
+  });
 
 </script>
 </body>
